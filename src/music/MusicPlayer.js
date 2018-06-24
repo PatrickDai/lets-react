@@ -17,8 +17,8 @@ export default class MusicPlayer extends Component {
         <div>
           <h3>{music.title} - {music.artist}</h3>
           <div>Remaining time: {humanReadableDuration(this.state.timer || music.duration)}</div>
-          <MusicPlayButton onClick={this.togglePlay.bind(this, music, this.state.currentMusicIndex)}
-                           isPlaying={this.state.isPlaying}/>
+          <MusicPlayButton isPlaying={this.state.isPlaying}
+                           onClick={this.togglePlay.bind(this, music, this.state.currentMusicIndex)}/>
         </div>
       </section>
     )
@@ -28,7 +28,8 @@ export default class MusicPlayer extends Component {
     if (this.state.isPlaying) {
       this.stop()
     }
-    if (musicIndex !== this.state.currentMusicIndex || !this.state.isPlaying) {
+    const currentPlayingMusic = this.props.musics[this.state.currentMusicIndex];
+    if (music !== currentPlayingMusic || !this.state.isPlaying) {
       this.play(music);
     }
     this.setState({ currentMusicIndex: musicIndex });
@@ -51,7 +52,10 @@ export default class MusicPlayer extends Component {
   playNext() {
     const nextMusicIndex = (this.state.currentMusicIndex + 1) % this.props.musics.length;
     this.setState({ currentMusicIndex: nextMusicIndex });
-    this.play(this.props.musics[this.state.currentMusicIndex]);
+    const nextMusic = this.props.musics[this.state.currentMusicIndex];
+    if (nextMusic) {
+      this.play(nextMusic);
+    }
   }
 
   stop() {

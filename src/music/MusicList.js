@@ -1,9 +1,8 @@
 import React from 'react';
 import humanReadableDuration from './duration.service';
-import MusicPlayButton from './MusicPlayButton';
 
 export default function MusicList(props) {
-  const { musics, onPlay } = props;
+  const { musics, play, add, remove, name } = props;
   const header = <tr>
     <th>Title</th>
     <th>Artist</th>
@@ -16,14 +15,19 @@ export default function MusicList(props) {
       <td>{music.artist}</td>
       <td>{humanReadableDuration(music.duration)}</td>
       <td>
-        <MusicPlayButton onClick={() => onPlay(music, i)}/>
+        <button onClick={() => play(music, i)}>Play</button>
+        {add && <button onClick={() => add(music, i)}>Add</button>}
+        {remove && <button onClick={() => remove(music, i)}>Remove</button>}
       </td>
     </tr>
   );
   return (
-    <table>
-      <thead>{header}</thead>
-      <tbody>{rows}</tbody>
-    </table>
+    <section>
+      <h2> {name} </h2>
+      <table>
+        <thead>{header}</thead>
+        <tbody>{rows}</tbody>
+      </table>
+    </section>
   );
 }
