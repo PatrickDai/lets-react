@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import humanReadableDuration from './duration.service'
+import MusicPlayButton from './MusicPlayButton';
 
 export default class MusicPlayer extends Component {
   state = {
@@ -16,19 +17,25 @@ export default class MusicPlayer extends Component {
         <div>
           <h3>{music.title} - {music.artist}</h3>
           <div>Remaining time: {humanReadableDuration(this.state.timer || music.duration)}</div>
-          <button onClick={this.handlePlay.bind(this, music)}>{this.state.isPlaying ? 'Stop' : 'Play'}</button>
+          <MusicPlayButton onClick={this.togglePlay.bind(this, music, this.state.currentMusicIndex)}
+                           isPlaying={this.state.isPlaying}/>
         </div>
       </section>
     )
   }
 
-  handlePlay(music) {
-    const isPlaying = !this.state.isPlaying;
-    isPlaying ? this.play(music) : this.stop();
-    this.setState({ isPlaying });
+  togglePlay(music, musicIndex) {
+    if (this.state.isPlaying) {
+      this.stop()
+    }
+    if (musicIndex !== this.state.currentMusicIndex || !this.state.isPlaying) {
+      this.play(music);
+    }
+    this.setState({ currentMusicIndex: musicIndex });
   }
 
   play(music) {
+    this.setState({ isPlaying: true });
     const finishAt = Date.now() + music.duration;
     const tick = () => {
       const timeLeft = finishAt - Date.now();
@@ -48,6 +55,7 @@ export default class MusicPlayer extends Component {
   }
 
   stop() {
+    this.setState({ isPlaying: false });
     clearInterval(this.timerInterval);
   }
 

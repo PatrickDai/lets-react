@@ -12,8 +12,8 @@ export default class MusicApp extends Component {
     return (
       <div className='Music-App'>
         <h1> Music App </h1>
-        <MusicList musics={musics}/>
-        <MusicPlayer musics={this.state.currentPlayingList}></MusicPlayer>
+        <MusicList musics={musics} onPlay={(music, index) => this.player.togglePlay(music, index)} />
+        <MusicPlayer ref={(player) => this.player = player} musics={this.state.currentPlayingList}></MusicPlayer>
       </div>
     );
   }
