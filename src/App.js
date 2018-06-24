@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Redirect } from 'react-router-dom';
 import Route from 'react-router-dom/Route';
 import PrimeApp from "./prime/PrimeApp";
+import MusicApp from "./music/MusicApp";
 
 export default class App extends Component {
   render() {
@@ -9,7 +10,8 @@ export default class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route exact path="/prime" component={PrimeApp}/>
-          <Redirect from="*" to="/prime"/>
+          <Route exact path="/music" component={MusicApp}/>
+          <Redirect from="/" to="/music"/>
         </Switch>
       </BrowserRouter>
     );

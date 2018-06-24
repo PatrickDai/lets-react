@@ -44,7 +44,9 @@ export default class PrimeApp extends Component {
 
   componentDidMount() {
     const persistedResults = localStorage.getItem(APP_KEY);
-    this.setState({ results: JSON.parse(persistedResults) });
+    if (persistedResults !== null) {
+      this.setState({ results: JSON.parse(persistedResults) });
+    }
     window.addEventListener("beforeunload", this.persist.bind(this))
   }
 
