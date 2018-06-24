@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import getNthPrime from './prime.service';
-import PrimeForm from "./PrimeForm";
-import PrimeResults from "./PrimeResults";
+import PrimeForm from './PrimeForm';
+import PrimeResults from './PrimeResults';
 
-const APP_KEY = "PrimeApp";
+const APP_KEY = 'PrimeApp';
 
 export default class PrimeApp extends Component {
   state = { results: [] };
 
   render() {
     return (
-      <div className="Prime-App">
+      <div className='Prime-App'>
         <h1> Find the nth prime number </h1>
         <PrimeForm onSubmit={this.handleSubmit.bind(this)}/>
         <button onClick={this.emptyResults.bind(this)}> Empty results</button>
@@ -35,7 +35,7 @@ export default class PrimeApp extends Component {
   }
 
   emptyValue(input) {
-    input.value = "";
+    input.value = '';
   }
 
   emptyResults() {
@@ -47,11 +47,11 @@ export default class PrimeApp extends Component {
     if (persistedResults !== null) {
       this.setState({ results: JSON.parse(persistedResults) });
     }
-    window.addEventListener("beforeunload", this.persist.bind(this))
+    window.addEventListener('beforeunload', this.persist.bind(this))
   }
 
   componentWillUnmount() {
-    window.removeEventListener("beforeunload", this.persist.bind(this));
+    window.removeEventListener('beforeunload', this.persist.bind(this));
   }
 
   persist() {
