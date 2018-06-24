@@ -17,7 +17,8 @@ function findNthPrimeNumber(n) {
 }
 
 function isPrime(number) {
-  for (let i = 2; i < number; i++) {
+  const sqrt = Math.sqrt(number);
+  for (let i = 2; i <= sqrt; i++) {
     if (number % i === 0) {
       return false;
     }
