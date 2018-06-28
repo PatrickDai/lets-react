@@ -1,22 +1,26 @@
-import React, { Component } from 'react';
-import MusicList from './MusicList';
+import React, { Component } from "react";
+import MusicList from "./MusicList";
 
-const APP_KEY = 'MusicApp.Playlist';
+const APP_KEY = "MusicApp.Playlist";
 
 export default class MusicPlaylist extends Component {
   state = { musics: [] };
 
   render() {
-    return <MusicList name={this.props.name}
-                      musics={this.state.musics}
-                      play={(music, index) => this.play(music, index)}
-                      remove={(music, index) => this.remove(music, index)}/>
+    return (
+      <MusicList
+        name={this.props.name}
+        musics={this.state.musics}
+        play={(music, index) => this.play(music, index)}
+        remove={(music, index) => this.remove(music, index)}
+      />
+    );
   }
 
   play(music, index) {
     const musics = this.moveMusicToTop(music, index);
     this.setState({ musics });
-    this.props.play(music, index)
+    this.props.play(music, index);
   }
 
   moveMusicToTop(music, index) {
@@ -43,14 +47,14 @@ export default class MusicPlaylist extends Component {
     if (persistedResults !== null) {
       this.setState({ musics: JSON.parse(persistedResults) });
     }
-    window.addEventListener('beforeunload', this.persist.bind(this))
+    window.addEventListener("beforeunload", this.persist.bind(this));
   }
 
   componentWillUnmount() {
-    window.removeEventListener('beforeunload', this.persist.bind(this));
+    window.removeEventListener("beforeunload", this.persist.bind(this));
   }
 
   persist() {
-    localStorage.setItem(APP_KEY, JSON.stringify(this.state.musics))
+    localStorage.setItem(APP_KEY, JSON.stringify(this.state.musics));
   }
 }

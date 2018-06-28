@@ -1,15 +1,17 @@
-import React from 'react';
-import humanReadableDuration from './duration.service';
+import React from "react";
+import humanReadableDuration from "./duration.service";
 
 export default function MusicList(props) {
   const { musics, play, add, remove, name } = props;
-  const header = <tr>
-    <th>Title</th>
-    <th>Artist</th>
-    <th>Duration</th>
-    <th>Action</th>
-  </tr>;
-  const rows = musics.map((music, i) =>
+  const header = (
+    <tr>
+      <th>Title</th>
+      <th>Artist</th>
+      <th>Duration</th>
+      <th>Action</th>
+    </tr>
+  );
+  const rows = musics.map((music, i) => (
     <tr key={i}>
       <td>{music.title}</td>
       <td>{music.artist}</td>
@@ -20,7 +22,8 @@ export default function MusicList(props) {
         {remove && <button onClick={() => remove(music, i)}>Remove</button>}
       </td>
     </tr>
-  );
+  ));
+
   return (
     <section>
       <h2> {name} </h2>

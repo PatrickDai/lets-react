@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import humanReadableDuration from './duration.service'
-import MusicPlayButton from './MusicPlayButton';
+import React, { Component } from "react";
+import humanReadableDuration from "./duration.service";
+import MusicPlayButton from "./MusicPlayButton";
 
 export default class MusicPlayer extends Component {
   state = {
@@ -15,18 +15,29 @@ export default class MusicPlayer extends Component {
       <section>
         <h2>Player</h2>
         <div>
-          <h3>{music.title} - {music.artist}</h3>
-          <div>Remaining time: {humanReadableDuration(this.state.timer || music.duration)}</div>
-          <MusicPlayButton isPlaying={this.state.isPlaying}
-                           onClick={this.togglePlay.bind(this, music, this.state.currentMusicIndex)}/>
+          <h3>
+            {music.title} - {music.artist}
+          </h3>
+          <div>
+            Remaining time:{" "}
+            {humanReadableDuration(this.state.timer || music.duration)}
+          </div>
+          <MusicPlayButton
+            isPlaying={this.state.isPlaying}
+            onClick={this.togglePlay.bind(
+              this,
+              music,
+              this.state.currentMusicIndex
+            )}
+          />
         </div>
       </section>
-    )
+    );
   }
 
   togglePlay(music, musicIndex) {
     if (this.state.isPlaying) {
-      this.stop()
+      this.stop();
     }
     const currentPlayingMusic = this.props.musics[this.state.currentMusicIndex];
     if (music !== currentPlayingMusic || !this.state.isPlaying) {
@@ -50,7 +61,8 @@ export default class MusicPlayer extends Component {
   }
 
   playNext() {
-    const nextMusicIndex = (this.state.currentMusicIndex + 1) % this.props.musics.length;
+    const nextMusicIndex =
+      (this.state.currentMusicIndex + 1) % this.props.musics.length;
     this.setState({ currentMusicIndex: nextMusicIndex });
     const nextMusic = this.props.musics[this.state.currentMusicIndex];
     if (nextMusic) {
